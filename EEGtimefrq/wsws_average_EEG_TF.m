@@ -2,7 +2,7 @@
 clear all
 close all
 
-run ../def_local.m
+run(['..' filesep 'def_local'])
 addpath(path_fieldtrip)
 ft_defaults
 
