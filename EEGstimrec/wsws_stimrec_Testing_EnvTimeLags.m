@@ -3,9 +3,7 @@ clear all
 close all
 
 run(['..' filesep 'def_local'])
-
 addpath(genpath(path_mTRF))
-
 
 %%
 allfiles={'405','406','407','408','409','410','411','412','413','414','415','416','417','418','419','420','421','422','423'};
@@ -111,25 +109,32 @@ for n=1:length(allfiles)
 end
 
 %% collate data table
-this_table=array2table(all_Rec,...
+tbl=array2table(all_Rec,...
     'VariableNames',{'SubID','Type','Band','Rep','nBlock','nTrial','Clarity','Rec','Rec_Chunk1','Rec_Chunk2','Rec_Chunk3',...
     'RecOri','RecOri_Chunk1','RecOri_Chunk2','RecOri_Chunk3','DiffMean_Chunk1','DiffMean_Chunk2','DiffMean_Chunk3',...
     'DiffSTD_Chunk1','DiffSTD_Chunk2','DiffSTD_Chunk3','DiffMean','DiffSTD'});
-this_table.Cond=all_Cond;
-this_table.Cond=categorical(this_table.Cond);
-this_table.SubID=categorical(allfiles(this_table.SubID)');
-this_table.Type=categorical(this_table.Type);
-this_table.Type(this_table.Type=='1')='SWS';
-this_table.Type(this_table.Type=='2')='NVS';
-this_table.Type=removecats(this_table.Type);
-this_table.CodeStim=all_CodeStim;
-this_table.CodeStim=categorical(this_table.CodeStim);
+tbl.Cond=all_Cond;
+tbl.Cond=categorical(tbl.Cond);
+tbl.SubID=categorical(allfiles(tbl.SubID)');
+tbl.Type=categorical(tbl.Type);
+tbl.Type(tbl.Type=='1')='SWS';
+tbl.Type(tbl.Type=='2')='NVS';
+tbl.Type=removecats(tbl.Type);
+tbl.CodeStim=all_CodeStim;
+tbl.CodeStim=categorical(tbl.CodeStim);
 
-writetable(this_table, [path_stats filesep 'wsws_stimrec.csv']);
+% export data for modelling
+writetable(tbl, [path_stats filesep 'wsws_stimrec.csv'])
 
 
-%% Figure 2A
+%% plot Figure 2A
 addpath(path_figs)
+
+if ~exist('tbl', 'var')
+    tbl = readtable([path_stats filesep 'wsws_stimrec.csv']);
+    tbl.Type = categorical(tbl.Type);
+    tbl.Cond = categorical(tbl.Cond);    
+end
 
 Types = StimCat;
 Markers={'o','d'};
@@ -141,8 +146,8 @@ for nCond=1:length(Conds)
         hdot=[];
         for nRep=1:2
             nBand=1;
-            tempRec=this_table.Rec_Chunk1(this_table.Type==Types{nType} & this_table.Rep==nRep & this_table.Band==nBand & this_table.Cond==Conds{nCond});
-            tempID=this_table.SubID(this_table.Type==Types{nType} & this_table.Rep==nRep & this_table.Band==nBand & this_table.Cond==Conds{nCond});
+            tempRec=tbl.Rec_Chunk1(tbl.Type==Types{nType} & tbl.Rep==nRep & tbl.Band==nBand & tbl.Cond==Conds{nCond});
+            tempID=tbl.SubID(tbl.Type==Types{nType} & tbl.Rep==nRep & tbl.Band==nBand & tbl.Cond==Conds{nCond});
             tempMean2{nType,nRep}(:,nCond)=grpstats(tempRec,tempID);
             width=0.5;
             if nRep==1
@@ -197,7 +202,7 @@ catch
 end
 
 
-%% Figure 2B
+%% plot Figure 2B
 figure; set(gcf,'Position',[160         556        1080         422]);
 for nT=1:2
     subplot(1,2,nT); hold on;
@@ -205,9 +210,9 @@ for nT=1:2
     all_resp{nT}=[];
     for nRep=2
         for nC=1:3
-            temp1=this_table.Clarity(this_table.Type==Types{nT} & this_table.Cond==Conds(nC) & this_table.Rep==nRep);
-            temp2=this_table.Rec_Chunk1(this_table.Type==Types{nT} & this_table.Cond==Conds(nC) & this_table.Rep==nRep);
-            tempS=this_table.SubID(this_table.Type==Types{nT} & this_table.Cond==Conds(nC) & this_table.Rep==nRep);
+            temp1=tbl.Clarity(tbl.Type==Types{nT} & tbl.Cond==Conds(nC) & tbl.Rep==nRep);
+            temp2=tbl.Rec_Chunk1(tbl.Type==Types{nT} & tbl.Cond==Conds(nC) & tbl.Rep==nRep);
+            tempS=tbl.SubID(tbl.Type==Types{nT} & tbl.Cond==Conds(nC) & tbl.Rep==nRep);
             mean1=grpstats(temp1,tempS);
             mean2=grpstats(temp2,tempS);
             all_means{nT}=[all_means{nT} ; [mean1 mean2 nC*ones(size(mean1,1),1)]];
@@ -231,9 +236,9 @@ for nT=1:2
     all_resp{nT}=[];
     for nRep=2
         for nC=1:3
-            temp1=this_table.Clarity(this_table.Type==Types{nT} & this_table.Cond==Conds(nC) & this_table.Rep==nRep);
-            temp2=this_table.Rec_Chunk1(this_table.Type==Types{nT} & this_table.Cond==Conds(nC) & this_table.Rep==nRep);
-            tempS=this_table.SubID(this_table.Type==Types{nT} & this_table.Cond==Conds(nC) & this_table.Rep==nRep);
+            temp1=tbl.Clarity(tbl.Type==Types{nT} & tbl.Cond==Conds(nC) & tbl.Rep==nRep);
+            temp2=tbl.Rec_Chunk1(tbl.Type==Types{nT} & tbl.Cond==Conds(nC) & tbl.Rep==nRep);
+            tempS=tbl.SubID(tbl.Type==Types{nT} & tbl.Cond==Conds(nC) & tbl.Rep==nRep);
             mean1=grpstats(temp1,tempS);
             mean2=grpstats(temp2,tempS);
             all_means{nT}=[all_means{nT} ; [mean1 mean2 nC*ones(size(mean1,1),1)]];
@@ -259,7 +264,7 @@ for nT=1:2
 
     format_fig;
     xlabel('Clarity'); xlim([.8 4.2]); set(gca,'XTick',1:4);
-    ylabel('Rec'); %
+    ylabel('Stim Rec');
     set(gca,'LineWidth',2,'XColor','k');
     set(gca,'FontSize',24)
     if nT==1

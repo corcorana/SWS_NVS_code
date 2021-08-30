@@ -27,33 +27,7 @@ dat.w <- dat %>%
   pivot_wider(names_from = Rep, 
             values_from = c(Rec_Chunk1, Clarity) ) %>%
   rename(Rec1 = Rec_Chunk1_1, 
-         Rec2 = Rec_Chunk1_2)
-
-
-
-### model subjective clarity ratings
-c1 <- clmm(Clarity_2 ~ Clarity_1 + Type +
-             (1+Type|SubID) + (1|CodeStim),
-           data = dat.w)
-
-c2 <- clmm(Clarity_2 ~ Clarity_1 + Type + Cond + 
-             (1+Type+Cond|SubID) + (1|CodeStim),
-           data = dat.w)	
-
-c3 <- clmm(Clarity_2 ~ Clarity_1 + Type * Cond + 
-             (1+Type*Cond|SubID) + (1|CodeStim),
-           data = dat.w)	
-
-# compare models
-anova(c1, c2, c3)
-
-# anova table for winning model
-Anova.clmm(c2, type=2)
-
-# contrasts for winning model
-pairs(emmeans(c2, ~Type))
-pairs(emmeans(c2, ~Cond))
-
+         Rec2 = Rec_Chunk1_2) %>% drop_na(Rec1)
 
 
 ### model stimulus reconstruction scores
@@ -86,15 +60,25 @@ pairs(emmeans(r2, ~Cond))
 
 
 ### introduce stimulus reconstruction score into clarity model
-cr0 <- c2
+cr0 <- clmm(Clarity_2 ~ Clarity_1 + Type + Cond +
+              (1+Type+Cond|SubID) + (1|CodeStim),      
+            data = dat.w)
 
 cr1 <- clmm(Clarity_2 ~ Clarity_1 + Type + Cond + Rec2 + 
               (1+Type+Cond|SubID) + (1|CodeStim),      
+            data = dat.w)
+# failed to converge
+
+cr1.1 <- clmm(Clarity_2 ~ Clarity_1 + Type + Cond + Rec2 + 
+              (1+Type|SubID) + (1|CodeStim),     
             data = dat.w)
 
 cr2 <- clmm(Clarity_2 ~ Clarity_1 + Type*Cond*Rec2 + 
               (1+Type*Cond|SubID) + (1|CodeStim),
             data = dat.w)
 
+
 # compare models
-anova(cr0,cr1,cr2)
+anova(cr0,cr1.1,cr2)
+
+Anova.clmm(cr2)
