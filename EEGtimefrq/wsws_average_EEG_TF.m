@@ -26,7 +26,7 @@ for n=1:length(allfiles)
     end
 end
 
-%% plot TFR
+%% plot Figure 3A
 addpath(path_figs)
 
 % define colour map
@@ -87,4 +87,4 @@ try
 catch
     hgexport(gcf, [path_figs filesep 'fig3A'], hgexport('factorystyle'), 'Format', 'png')
 end
-close
+

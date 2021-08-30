@@ -16,8 +16,9 @@ end
 
 % MATLAB toolboxes -- update versions as required
 path_fieldtrip = [mat_path, 'fieldtrip-20200623'];
-path_eeglab = [mat_path, 'eeglab2019_1'];
-path_mTRF = [mat_path, 'mTRF-Toolbox-2.0'];
+path_mTRF = [mat_path, 'mTRF-Toolbox-2.0']; % necessary for stimulus reconstruction
+path_eeglab = [mat_path, 'eeglab2019_1'];   % optional for Fig 3B topographies
+
 if ~exist(path_fieldtrip, 'dir')
     warning('Unable to locate FieldTrip toolbox... need to update path in `def_local` ?')
 end

@@ -88,19 +88,19 @@ for nStim = 1:2
     
 end
 
-%% topoplots
-if ~exist(path_eeglab, 'dir')
-    warning('Unable to locate EEGlab toolbox... need to update path in `def_local` ?')
-else
-    addpath(genpath(path_eeglab))  % this needs to be removed to rerun cluster permutation (function clash)
-end
+%% plot Figure 3B
 addpath(path_figs)
-
-load eeglab_chanlocs
-chans = chanlocs(find(ismember({chanlocs.labels}, label)));
-
-% define colour map
 cm = dlmread('brewermapOrRd');
+
+if exist(path_eeglab, 'dir')
+    addpath(genpath(path_eeglab))
+    load eeglab_chanlocs
+    chans = chanlocs(find(ismember({chanlocs.labels}, label)));
+else
+    cfg = [];
+    cfg.parameter = 'mask';
+    cfg.cm = cm;
+end
 
 % contrasts for plotting (vs. P0)
 Ctrst = { 'P+ vs. P0'; 'P- vs. P0'; 'P+ vs. P0' };
@@ -110,22 +110,29 @@ frx = 10:15;
 spex =  {   1, 2, frx;
             1, 3, frx;
             2, 2, frx  };
-
-figure
-set(gcf,'units','centimeters', 'Position', [1 1 19 9])
+        
+figure; set(gcf,'units','centimeters', 'Position', [1 1 19 9])      
 try
     ax = tight_subplot(1,3,[.01 .01]);
 catch
-    warning('Unable to find `tight_subplot` function')
+    warning('Consider downloading `tight_subplot` function from MATLAB Central')
 end
+
 for sx = 1:size(spex, 1)
     try
         axes(ax(sx))
     catch
         ax(sx) = subplot(1,3,sx);
     end
-    mu_p = mean(diffCond{spex{sx,1}, spex{sx,2}}.mask(:,spex{sx,3}),2);
-    topoplot(mu_p, chans, 'colormap', cm, 'whitebk', 'on', 'shading', 'flat' ); 
+    try
+        mu_p = mean(diffCond{spex{sx,1}, spex{sx,2}}.mask(:,spex{sx,3}),2);
+        topoplot(mu_p, chans, 'colormap', cm, 'whitebk', 'on', 'shading', 'flat' ); 
+
+    catch % use fieldtrip function
+        cfg.xlim = [spex{sx,3}(1), spex{sx,3}(end)];
+        ft_topoplotTFR(cfg, diffCond{spex{sx,1},spex{sx,2}});
+
+    end
     caxis([0 1])
     title(['\color[rgb]{',num2str(ColorStim(spex{sx,1},:)),'}', StimCat{spex{sx,1}},...
         ' ','\color{black}', Ctrst{sx}], 'interpreter', 'tex')
@@ -150,6 +157,5 @@ try
 catch
     hgexport(gcf, [path_figs filesep 'fig3B'], hgexport('factorystyle'), 'Format', 'png'); 
 end
-close
 
 rmpath(genpath(path_eeglab))

@@ -7,7 +7,6 @@ addpath(path_fieldtrip)
 ft_defaults
 
 %%
-load wsws_ERD
 
 elec = ft_read_sens(path_chanlocs);
 cfg_neighb          = [];
@@ -44,6 +43,7 @@ cfg.channel     = {'all', '-17', '-22'};     % cell-array with selected channel 
 cfg.latency     = [-1 11];    
 
 
+load wsws_ERD
 erd = struct('time', t, 'fsample', fs, 'dimord', 'subj_chan_time', 'elec', elec, 'label', {label} );
 pos = erd; neg = erd; zer = erd;
 stat = cell(size(ERDi));
@@ -63,21 +63,18 @@ for nRep = 2
     end
 end
 
-%% plot alpha ERD/ERS 
+%% plot Figure 4A
 addpath(path_figs)
-
-figure
-set(gcf,'units','centimeters', 'Position', [1 1 14 18])
 
 nRep = 2;
 nFrq = 3;
 chans = [23:32, 56:64];     % parieto-occipital electrodes per channel number
 
+figure; set(gcf,'Position',[193   170   408   627])
 for nStim = 1:2
-    subplot(2,1,nStim)
+    sp = subplot(2,1,nStim);
     for nCond = 1:3
-        simpleTplot(t, squeeze( mean(ERDi{nRep,nStim,nCond,nFrq}(:,chans,:), 2) ),...
-                            0,ColorCond(nCond,:),0,'-',.3,1,0,[],1);
+        simpleTplot(t, squeeze( mean(ERDi{nRep,nStim,nCond,nFrq}(:,chans,:), 2) ), 0,ColorCond(nCond,:),0,'-',.3,1,0,[],1);
         hold on
     end
     for ctrst = 1:2
@@ -90,16 +87,16 @@ for nStim = 1:2
         try
             line([tbins(1), tbins(end)], [.6, .6]+ctrst/30, 'LineStyle', '-', 'Color', ColorCond(ctrst,:), 'LineWidth', 2)
         catch
-            warning('no significant cluster detected for %s contrast #%g', StimCat{nStim}, ctrst)
+            warning('no significant pos cluster detected for %s contrast #%g', StimCat{nStim}, ctrst)
         end
         neg_cluster_pvals = [stat{nRep,nStim,ctrst,nFrq}.negclusters(:).prob];
         neg_clust = find(neg_cluster_pvals < 0.025);
         neg = sum(ismember(stat{nRep,nStim,ctrst,nFrq}.negclusterslabelmat(chan_idx,:), neg_clust))>0;
         tbins = stat{nRep,nStim,ctrst,nFrq}.time(neg);
         try
-            line([tbins(1), tbins(end)], [1.25, 1.25]-ctrst/30, 'LineStyle', '-', 'Color', ColorCond(ctrst,:), 'LineWidth', 2)
+            line([tbins(1), tbins(end)], [.6, .6]+ctrst/30, 'LineStyle', '-', 'Color', ColorCond(ctrst,:), 'LineWidth', 2)
         catch
-            warning('no significant cluster detected for %s contrast #%g', StimCat{nStim}, ctrst)
+            warning('no significant neg cluster detected for %s contrast #%g', StimCat{nStim}, ctrst)
         end
     end
     line([0,0], [0.5,1.5], 'LineStyle', '--', 'Color', 'k')
@@ -107,9 +104,19 @@ for nStim = 1:2
     ylim([.6 1.3])
     ylabel('Alpha Power')
     title(StimCat{nStim}, 'FontSize', 20, 'FontWeight', 'Bold', 'Color', ColorStim(nStim,:))
+    format_fig
+    
+    % add channel layout
+    if nStim == 1
+        axes('Position',[.7 .8 .2 .2])
+    elseif nStim == 2
+        axes('Position',[.7 .3 .2 .2])
+    end
+    ft_plot_layout(layout, 'chanindx', chans,'pointsymbol','.','pointcolor','k','pointsize',16,'box','no','label','no' )
     format_fig 
 end
 xlabel('Time (s)')
+
 
 % export
 try
@@ -117,4 +124,4 @@ try
 catch
     hgexport(gcf, [path_figs filesep 'fig4A'], hgexport('factorystyle'), 'Format', 'png')
 end
-close
+

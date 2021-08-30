@@ -208,7 +208,7 @@ pairs(emmeans(b3.r, ~cond))
 ## refit to mean-centred data 
 mc <- data %>%
   group_by(subj_id, freq) %>%
-  summarise(muPow = mean(logpow2, na.rm=T), sdPow = sd(logpow2, na.rm=T)) %>%
+  summarise(muPow = mean(logpow2, na.rm=T)) %>%
   ungroup() %>%
   left_join(data, ., by=c("subj_id", "freq"))
 
@@ -302,7 +302,7 @@ ggplot() +
                                 y = y2, yend = y2) )
 
 
-### plot Fig 3C -- only display significant condition effects (drop Beta model)
+### plot Figure 3C -- only display significant condition effects (drop Beta model)
 emms <- rbind(emmd, emmt, emma)
 m3 <- m2 %>% filter(freq!="Beta") %>% droplevels()
 

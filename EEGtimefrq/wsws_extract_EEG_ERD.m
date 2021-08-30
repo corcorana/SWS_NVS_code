@@ -28,7 +28,7 @@ for n=1:length(allfiles)
     
     %%% Loading data
     fprintf('... loading %s\n',allfiles{n})
-    load([preproc_path filesep 'nlhie_ft_test_SWSNVS' allfiles{n}],'event');
+    load([preproc_path filesep 'nlhie_ft_test_SWSNVS' allfiles{n}],'event','layout');
     load([preproc_path filesep 'ICAcomp_rej_ft_test_SWSNVS' allfiles{n}])
 
     % reref to linked mastoids 
@@ -77,5 +77,5 @@ for n=1:length(allfiles)
         end
     end
 end
-save('wsws_ERD.mat','ERD','ERDi','t','fs','label');
+save('wsws_ERD.mat','ERD','ERDi','t','fs','label','layout');
 
