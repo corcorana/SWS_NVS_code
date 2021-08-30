@@ -44,7 +44,6 @@ for n=1:length(allfiles)
         fprintf('... ... ... test model\n')
         
         nc=0;
-        %         permTrials=randperm(length(trial_labels));
         for nTr=1:length(trial_labels)
             tempspecs=trial_specs{nTr};
             if isempty(res_mat(res_mat(:,1)==str2double(tempspecs((strfind(tempspecs,'Block')+5))) & ...
@@ -112,29 +111,29 @@ for n=1:length(allfiles)
 end
 
 %% collate data table
-this_table=array2table(all_Rec,'VariableNames',{'SubID','Type','Band','Rep','nBlock','nTrial','Clarity','Rec',...
-    'Rec_Chunk1','Rec_Chunk2','Rec_Chunk3','RecOri','RecOri_Chunk1','RecOri_Chunk2','RecOri_Chunk3',...
-    'DiffMean_Chunk1','DiffMean_Chunk2','DiffMean_Chunk3','DiffSTD_Chunk1','DiffSTD_Chunk2','DiffSTD_Chunk3','DiffMean','DiffSTD'});
+this_table=array2table(all_Rec,...
+    'VariableNames',{'SubID','Type','Band','Rep','nBlock','nTrial','Clarity','Rec','Rec_Chunk1','Rec_Chunk2','Rec_Chunk3',...
+    'RecOri','RecOri_Chunk1','RecOri_Chunk2','RecOri_Chunk3','DiffMean_Chunk1','DiffMean_Chunk2','DiffMean_Chunk3',...
+    'DiffSTD_Chunk1','DiffSTD_Chunk2','DiffSTD_Chunk3','DiffMean','DiffSTD'});
 this_table.Cond=all_Cond;
 this_table.Cond=categorical(this_table.Cond);
-this_table.SubID=categorical(this_table.SubID);
+this_table.SubID=categorical(allfiles(this_table.SubID)');
 this_table.Type=categorical(this_table.Type);
 this_table.Type(this_table.Type=='1')='SWS';
 this_table.Type(this_table.Type=='2')='NVS';
 this_table.Type=removecats(this_table.Type);
-this_table.Cond=reordercats(this_table.Cond,[1 2 3]);
 this_table.CodeStim=all_CodeStim;
 this_table.CodeStim=categorical(this_table.CodeStim);
 
-writetable(this_table,[path_stats filesep 'wsws_stimrec_mTRF.csv']);
+writetable(this_table, [path_stats filesep 'wsws_stimrec.csv']);
 
-%% generate Figure 2
+
+%% Figure 2A
 addpath(path_figs)
 
 Types = StimCat;
 Markers={'o','d'};
 
-% 2A
 figure; set(gcf,'Position',[539         504        1157         366])
 for nCond=1:length(Conds)
     for nType=1:length(Types)
@@ -168,12 +167,11 @@ for nCond=1:length(Conds)
             end
         end
         for k=1:2
-        uistack(hdot{k}.line{1},'top');
-        uistack(hdot{k}.line{2},'top');
-        uistack(hdot{k}.line{3},'top');
-        uistack(hdot{k}.mean,'top');
+            uistack(hdot{k}.line{1},'top');
+            uistack(hdot{k}.line{2},'top');
+            uistack(hdot{k}.line{3},'top');
+            uistack(hdot{k}.mean,'top');
         end
-        
         
         set(gca,'XTick',1:3,'XTickLabel',{'P+','P-','P0'})
         ylabel('Stim Rec')
@@ -191,10 +189,15 @@ for nCond=1:length(Conds)
     end
 end
 
-%export_fig([path_figs filesep 'fig2A.png'])
+% export
+try
+    export_fig( [path_figs filesep 'fig2A.png'] )
+catch
+    hgexport(gcf, [path_figs filesep 'fig2A'], hgexport('factorystyle'), 'Format', 'png')
+end
 
 
-% 2B
+%% Figure 2B
 figure; set(gcf,'Position',[160         556        1080         422]);
 for nT=1:2
     subplot(1,2,nT); hold on;
@@ -266,5 +269,11 @@ for nT=1:2
     end
 end
 
-%export_fig([path_figs filesep 'fig2B.png'])
+
+% export
+try
+    export_fig( [path_figs filesep 'fig2B.png'] )
+catch
+    hgexport(gcf, [path_figs filesep 'fig2B'], hgexport('factorystyle'), 'Format', 'png')
+end
 

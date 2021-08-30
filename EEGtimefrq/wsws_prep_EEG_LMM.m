@@ -90,4 +90,4 @@ t1 = array2table(long);
 t1.Properties.VariableNames = {'subj_id' 'block' 'trial' 'stim' 'cond' 'chan' 'freq' 'logpow1' 'logpow2' 'clarity1' 'clarity2' 'congruence'};
 t2 = array2table(item_id);
 T = [t1,t2];
-writetable(T, [path_stats filesep 'wsws_EEG_behav_TF.csv'])
+writetable(T, [path_stats filesep 'wsws_timefrq.csv'])
