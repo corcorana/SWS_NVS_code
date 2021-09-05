@@ -196,6 +196,7 @@ end
 
 % export
 try
+    export_fig( [path_figs filesep 'StimRec_Rec_Chunk1_perCond.eps'], '-r 300' )
     export_fig( [path_figs filesep 'fig2A.png'] )
 catch
     hgexport(gcf, [path_figs filesep 'fig2A'], hgexport('factorystyle'), 'Format', 'png')
@@ -277,6 +278,7 @@ end
 
 % export
 try
+    export_fig( [path_figs filesep 'StimRec_Corr_RecClarity.eps'], '-r 300' )
     export_fig( [path_figs filesep 'fig2B.png'] )
 catch
     hgexport(gcf, [path_figs filesep 'fig2B'], hgexport('factorystyle'), 'Format', 'png')
