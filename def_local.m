@@ -38,6 +38,8 @@ if ~exist(path_mTRF, 'dir')
 end
 if exist(path_figexport, 'dir')
     addpath(path_figexport)
+else
+    warning('Unable to locate export_fig... will default to hgexport')
 end
 
 %% following paths should not require re-definition (directory structure should mirror GitHub repository)

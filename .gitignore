@@ -42,5 +42,6 @@ vignettes/*.pdf
 # large .mat files
 *ERD.mat
 
-# figures
+# output files
 *.png
+*.html
