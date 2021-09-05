@@ -9,23 +9,20 @@ if ~exist(dat_path, 'dir')
     end
 end
 
-% MATLAB -- direct to local MATLAB directory
+% MATLAB -- direct to local MATLAB directory (code may be stored elsewhere)
 mat_path = 'C:\Users\acor0004\Documents\MATLAB\';
 if ~exist(mat_path, 'dir')
-    mat_path = '/Users/thandrillon/Work/local/'; %no need to add it
+    mat_path = '/Users/thandrillon/Work/local/';
     if ~exist(mat_path, 'dir')
         warning('Unable to locate MATLAB directory... need to update path in `def_local` ?')
     end
-else
-    addpath(mat_path)
 end
 
 % MATLAB toolboxes -- update versions as required
-path_fieldtrip = [mat_path, 'fieldtrip-20200623'];
+path_fieldtrip = [mat_path, 'fieldtrip-20200623']; % necessary for EEG pipeline
 path_mTRF = [mat_path, 'mTRF-Toolbox-2.0']; % necessary for stimulus reconstruction
 path_eeglab = [mat_path, 'eeglab2019_1'];   % optional for Fig 3B topographies
-path_LSCPtools = [mat_path, 'LSCPtools'];   % for Fig 2 (can be downloaded on GitHub: https://github.com/andrillon/LSCPtools)
-path_figexport = [mat_path, 'export_fig'];   % for Fig 2 (can be downloaded on GitHub: https://github.com/altmany/export_fig)
+path_figexport = [mat_path, 'export_fig'];  % optional for figure export (can be downloaded on GitHub: https://github.com/altmany/export_fig)
 
 if ~exist(path_fieldtrip, 'dir')
     path_fieldtrip = [mat_path, 'fieldtrip'];
@@ -33,52 +30,33 @@ if ~exist(path_fieldtrip, 'dir')
         warning('Unable to locate FieldTrip toolbox... need to update path in `def_local` ?')
     end
 end
-if ~exist(path_mTRF, 'dir') % only need for preparation of stim ?
-    path_mTRF = ['/Users/thandrillon/WorkGit/projects/ext/mTRF-Toolbox']; % necessary for stimulus reconstruction
-    if ~exist(path_mTRF, 'dir')
+if ~exist(path_mTRF, 'dir')
+    path_mTRF = '/Users/thandrillon/WorkGit/projects/ext/mTRF-Toolbox';
+    if  ~exist(path_mTRF, 'dir')
         warning('Unable to locate mTRF toolbox... need to update path in `def_local` ?')
     end
 end
-if ~exist(path_eeglab, 'dir') % only need for preparation of stim ?
-    path_eeglab = [mat_path, 'eeglab14_1_2b'];
-    if ~exist(path_eeglab, 'dir')
-        warning('Unable to locate EEGlab toolbox... need to update path in `def_local` ?')
-    end
+if exist(path_figexport, 'dir')
+    addpath(path_figexport)
 end
-if ~exist(path_LSCPtools, 'dir') % only need for preparation of stim ?
-    path_LSCPtools = ['/Users/thandrillon/WorkGit/LSCPtools']; % necessary for stimulus reconstruction
-    if ~exist(path_LSCPtools, 'dir')
-        warning('Unable to locate LSCPtools toolbox... need to update path in `def_local` ?')
-    end
-end
-if ~exist(path_figexport, 'dir') % only need for preparation of stim ?
-    path_figexport = [mat_path filesep 'export_fig']; % necessary for stimulus reconstruction
-    if ~exist(path_figexport, 'dir')
-        warning('Unable to locate FigExport toolbox... need to update path in `def_local` ?')
-    end
-end
+
+%% following paths should not require re-definition (directory structure should mirror GitHub repository)
 
 % code paths
 if ~exist('def_local.m', 'file')
-    warning('`def_local` not found, change current folder to `SWS_NVS`')
+    warning('`def_local` not found, change current folder to `SWS_NVS_code`')
 else
     SWS = [pwd, filesep];
     path_stats = [SWS, 'stats'];
     path_figs = [SWS, 'figures'];
     path_chanlocs = [SWS, 'EasyCap64_MBI.sfp'];
-    if ~exist(path_stats, 'dir')
-        SWS = [pwd, filesep, '..',filesep];
-        path_stats = [SWS, 'stats'];
-        path_figs = [SWS, 'figures'];
-        path_chanlocs = [SWS, 'EasyCap64_MBI.sfp'];
-    end
 end
 
 % data paths
 raweeg_path = [dat_path, 'rawEEG'];
 behav_path = [dat_path, 'behav'];
 stim_path = [dat_path, 'stimuli'];
-eyet_path = [dat_path, 'eyeT'];
+eyet_path = [dat_path, 'eyeTrack'];
 preproc_path = [dat_path, 'preprocEEG'];
 
 
