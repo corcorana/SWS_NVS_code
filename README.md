@@ -10,9 +10,9 @@ You can access the datafiles on which these scripts operate from the [OSF platfo
 
 ## Directions
 In order to reproduce the analyses reported in the manuscript, first download/clone this repository into a suitable directory and navigate to the `def_local.m` script.
-You will need to modify this script in order to define local paths to the data and stimulus materials (which you will need to download from the [OSF repository](https://osf.io/5qxds/)), as well as the requisite MATLAB toolboxes.
-You will need the FieldTrip toolbox installed in order to reproduce the EEG-based analyses; the mTRF toolbox is required for the stimulus reconstruction analysis only (scripts will warn you if these toolboxes cannot be located).
-Optional toolboxes for figure plotting include EEGlab and export_fig.
+You will need to modify this script in order to define local paths to the data and stimulus materials (which you will need to download from the [OSF repository](https://osf.io/5qxds/)), as well as the requisite *MATLAB* toolboxes.
+You will need the *FieldTrip* toolbox installed in order to reproduce the EEG-based analyses; the *mTRF* toolbox is required for the stimulus reconstruction analysis only (scripts will warn you if these toolboxes cannot be located).
+Optional toolboxes for figure plotting include *EEGLAB* and *export_fig*.
 
 ### EEG preprocessing
 To reproduce the EEG analysis pipeline from scratch (i.e. raw data only), first navigate to the `EEGpreproc` subdirectory to perform preprocessing.
@@ -41,9 +41,9 @@ Note that this analysis is completely independent of the EEG pipeline and can th
 ### Statistical modelling
 The outputs tables generated from the spectral power (`wsws_timefrq.csv`) and stimulus reconstruction (`wsws_stimrec.csv`) analyses have been provided in the `stats` subdirectory so that statistical analyses can be performed in *R* without needing to run any component of the *MATLAB* pipeline.
 Note that rerunning the analysis pipeline will overwrite these files, potentially altering model results if new parameters have been specified.
-This subdirectory also contains a `MATLAB` script for collating and summarising basic demographic data (`wsws_demogs.m`).
+This subdirectory also contains a *MATLAB* script for collating and summarising basic demographic data (`wsws_demogs.m`).
 
-Pease ensure you have the appropriate packages installed on your system prior to running either `R` script (listed at the beginning of each script).
+Pease ensure you have the appropriate packages installed on your system prior to running either *R* script (listed at the beginning of each script).
 
 `wsws_timefrq.R` models subjective clarity ratings and mean spectral power estimates for each analysed frequency band.
 It also visualises the frequency band models.
