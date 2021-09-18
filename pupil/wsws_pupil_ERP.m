@@ -5,26 +5,6 @@ close all
 run(['..' filesep 'def_local'])
 addpath(path_figs) 
 
-% The Tobii data is organized as is:
-% (1) the eye-tracker data per se
-% % 1. time in sec
-% % 2. time in msec
-% % 3. x gaze coordinate of the left eye
-% % 4. y gaze coordinate of the left eye
-% % 5. x gaze coordinate of the right eye
-% % 6. y gaze coordinate of the right eye
-% % 7. left eye position - x coordinate
-% % 8. left eye position - y coordinate
-% % 9. right eye position ? x coordinate
-% % 10. right camera eye position - y coordinate
-% % 11. left eye validity
-% % 12. right eye validity
-% % 13. diameter of pupil of the left eye
-% % 14. diameter of pupil of the right eye
-% % 15. distance of the camera from the left eye
-% % 16. distance of the camera from the right eye
-% (2) the events sent to the tobii
-
 timeCol=17;
 
 %% Loop on subjects
