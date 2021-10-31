@@ -31,6 +31,8 @@ cfg.clustertail      = 0;
 cfg.alpha            = 0.025;      % alpha level of the permutation test
 cfg.numrandomization = 1000;        % number of draws from the permutation distribution
 
+load wsws_ERD
+
 Nsubj           = size(ERD{1}, 1);
 design          = zeros(2, Nsubj*2);
 design(1,:)     = [1:Nsubj 1:Nsubj];
@@ -43,7 +45,6 @@ cfg.channel     = {'all', '-17', '-22'};     % cell-array with selected channel 
 cfg.latency     = [-1 11];    
 
 
-load wsws_ERD
 erd = struct('time', t, 'fsample', fs, 'dimord', 'subj_chan_time', 'elec', elec, 'label', {label} );
 pos = erd; neg = erd; zer = erd;
 stat = cell(size(ERDi));
