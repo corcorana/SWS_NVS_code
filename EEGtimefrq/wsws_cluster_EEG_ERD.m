@@ -7,6 +7,7 @@ addpath(path_fieldtrip)
 ft_defaults
 
 %%
+load wsws_ERD
 
 elec = ft_read_sens(path_chanlocs);
 cfg_neighb          = [];
@@ -31,7 +32,6 @@ cfg.clustertail      = 0;
 cfg.alpha            = 0.025;      % alpha level of the permutation test
 cfg.numrandomization = 1000;        % number of draws from the permutation distribution
 
-load wsws_ERD
 
 Nsubj           = size(ERD{1}, 1);
 design          = zeros(2, Nsubj*2);

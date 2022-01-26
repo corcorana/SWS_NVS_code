@@ -11,7 +11,7 @@ ft_defaults
 allfiles={'405','406','407','408','409','410','411','412','413','414','415','416','417','418','419','420','421','422','423'};
 
 % params
-frqBand = [1,3; 4,9; 10,15; 15,30];
+frqBand = [1,3; 4,9; 10,15];
 
 filt = [];
 filt.hpfilter   = 'yes';  
@@ -68,14 +68,13 @@ for n=1:length(allfiles)
                     smoo = movmean(log10(pow), fs/2, 2);
                     rsS = resample(smoo', fs/rsFac, fs)';
                     ERDi{nRep,nStim,nCond,nFilt}(nc,:,:) = rsS;
-                                      
-                    % downsampled time vector
-                    t = downsample( data.time{1,1}, rsFac);
                     
                 end
             end
         end
-    end
+    end    
+    % save copy of downsampled time vector
+    t = downsample( data.time{1,1}, rsFac);
 end
 save('wsws_ERD.mat','ERD','ERDi','t','fs','label','layout');
 

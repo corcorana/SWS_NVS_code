@@ -10,7 +10,7 @@ if ~exist(dat_path, 'dir')
 end
 
 % MATLAB -- direct to local MATLAB directory (code may be stored elsewhere)
-mat_path = 'C:\Users\acor0004\Documents\MATLAB\';
+mat_path = 'C:\Users\corcoraa\Documents\MATLAB\';
 if ~exist(mat_path, 'dir')
     mat_path = '/Users/thandrillon/Work/local/';
     if ~exist(mat_path, 'dir')
