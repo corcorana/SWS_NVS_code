@@ -103,38 +103,50 @@ for nS=1:length(subj_name)
 end
 
 
-%% plot Figure 4B
-
-figure; set(gcf,'Position',[193   170   408   627])
+%% plot cluster permutation contrasting P+/P- vs P0
+figure; set(gcf,'Position',[193   170   528   727])
 timeP=-1:1/fs:11;
-hp=[];
 transpF=0.3;
-nrep=2;
-for ncat=1:2
+for ncat=1:length(StimCat)
     subplot(2,1,ncat); format_fig; hold on;
-    for ncond=1:3
-        if nrep==1
-            simpleTplot(timeP,squeeze(nanmean(avpupilSize_firstpres(:,ncat,ncond,:),2)),0,ColorCond(ncond,:),0,'-',transpF,1,[],[],3);
-        else
-            if ncat==1
-                [~,hp(ncond)]=simpleTplot(timeP,squeeze(nanmean(avpupilSize_secondpres(:,ncat,ncond,:),2)),...
-                    0,ColorCond(ncond,:),0,'-',transpF,1,[],[],3);
-            else
-                simpleTplot(timeP,squeeze(nanmean(avpupilSize_secondpres(:,ncat,ncond,:),2)),0,ColorCond(ncond,:),0,'-',transpF,1,[],[],3);
-            end
-        end
+    for ncond=1:2
+        pV{ncat,ncond} = simpleTplot(timeP,squeeze(nanmean(avpupilSize_secondpres(:,ncat,ncond,:),2))-...
+            squeeze(nanmean(avpupilSize_secondpres(:,ncat,3,:),2)),0,ColorCond(ncond,:),[2 0.025 0.05 1000],'-',transpF,1,[],[],3);
     end
-    
     xlim([-1 10.5])
-    ylim([-0.15 0.2])
     line([0,0], ylim, 'LineStyle', '--', 'Color', 'k')
+    if ncat==2
+        xlabel('Time (s)')
+    end  
+    ylabel('Pupil size')
+end
 
+%% plot Figure 4B
+figure; set(gcf,'Position',[193   170   528   727])
+transpF=0.3;
+for ncat=1:length(StimCat)
+    subplot(2,1,ncat); format_fig; hold on;
+    for ncond=1:2
+        simpleTplot(timeP,squeeze(nanmean(avpupilSize_secondpres(:,ncat,ncond,:),2)),...
+            0,ColorCond(ncond,:),0,'-',transpF,1,[],[],3);
+        hold on
+        l = pV{ncat,ncond}.realpos{1}.clusters==find(pV{ncat,ncond}.realpos{1}.pmonte<.025);
+        t = timeP(l);
+        line([t(1), t(end)], [-.2, -.2]+ncond/60, 'LineStyle', '-', 'Color', ColorCond(ncond,:), 'LineWidth', 2)
+    end
+    for ncond=3
+        simpleTplot(timeP,squeeze(nanmean(avpupilSize_secondpres(:,ncat,ncond,:),2)),...
+            0,ColorCond(ncond,:),0,'-',transpF,1,[],[],3);
+    end
+    xlim([-1 10.5])
+    ylim([-0.2 0.2])
+    line([0,0], ylim*1.1, 'LineStyle', '--', 'Color', 'k')
     if ncat==2
         xlabel('Time (s)')
     end
     set(gca,'LineWidth',2);
-    ylabel('Pupil size')
-
+    ylabel('Pupil size (a.u.)')
+    title(StimCat{ncat}, 'FontSize', 20, 'FontWeight', 'Bold', 'Color',  ColorStim(ncat,:))
 end
 
 % export
@@ -144,23 +156,3 @@ catch
     hgexport(gcf, [path_figs filesep 'fig4B'], hgexport('factorystyle'), 'Format', 'png')
 end
 
-%% plot cluster permutation results for Figure 4B
-
-figure; set(gcf,'Position',[193   170   408   627])
-timeP=-1:1/fs:11;
-hp=[];
-transpF=0.3;
-for ncat=1:2
-    subplot(2,1,ncat); format_fig; hold on;
-    for ncond=1:2
-        simpleTplot(timeP,squeeze(nanmean(avpupilSize_secondpres(:,ncat,ncond,:),2))-...
-            squeeze(nanmean(avpupilSize_secondpres(:,ncat,3,:),2)),0,ColorCond(ncond,:),[2 0.025 0.05 1000],'-',transpF,1,[],[],3);
-    end
-    xlim([-1 10.5])
-    line([0,0], ylim, 'LineStyle', '--', 'Color', 'k')
-    if ncat==2
-        xlabel('Time (s)')
-    end  
-    ylabel('Pupil size')
-
-end
