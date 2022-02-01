@@ -100,14 +100,14 @@ for nStim = 1:length(StimCat)
     if nStim==2
                 xlabel('Time (s)')
     end
-    title(StimCat{nStim}, 'FontSize', 20, 'FontWeight', 'Bold', 'Color', ColorStim(nStim,:))
     format_fig
-    
+    title(StimCat{nStim}, 'FontSize', 24, 'FontWeight', 'Bold', 'Color', ColorStim(nStim,:))
+
     % add channel layout
     if nStim == 1
-        axes('Position',[.7 .77 .2 .2])
+        axes('Position',[.7 .77 .18 .18])
     elseif nStim == 2
-        axes('Position',[.7 .29 .2 .2])
+        axes('Position',[.7 .29 .18 .18])
     end
     ft_plot_layout(layout, 'chanindx', chans,'pointsymbol','.','pointcolor','k','pointsize',16,'box','no','label','no' )
     format_fig 

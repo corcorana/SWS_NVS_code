@@ -32,7 +32,7 @@ addpath(path_figs)
 % define colour map
 cm = dlmread('brewermapRdBu');
 
-set(gcf,'units','centimeters', 'Position', [1 1 21 9])
+set(gcf,'units','centimeters', 'Position', [1 1 31 11])
 for nCond = 1:3
     meanSWS = squeeze(mean(Grand_TFR{2,1,nCond}, 1)) - squeeze(mean(mean(Grand_TFR{1,1,nCond}(:,:, time>=0 & time<=10.5), 1), 3))';
     meanNVS = squeeze(mean(Grand_TFR{2,2,nCond}, 1)) - squeeze(mean(mean(Grand_TFR{1,2,nCond}(:,:, time>=0 & time<=10.5), 1), 3))';
@@ -56,10 +56,7 @@ for nCond = 1:3
     line([0, 0], [Grand_TFR_interp(1), Grand_TFR_interp(end)], 'LineStyle', '--', 'Color', 'k')
     axis xy;
     caxis([-.23 .23]);
-
-    title(['\color[rgb]{',num2str(ColorCond(nCond,:)),'}' Conds{nCond}], 'interpreter', 'tex');
     colormap(cm);
-
     xlim([-1, 10.5]);
     xticks(0:2:10)
     xlabel('Time (s)')
@@ -67,7 +64,10 @@ for nCond = 1:3
     if nCond == 1
         ylabel('Frequency (Hz)');
     end
+    
     format_fig
+    title(['\color[rgb]{',num2str(ColorCond(nCond,:)),'}' Conds{nCond}], ...
+        'FontSize', 24, 'FontWeight', 'Bold', 'interpreter', 'tex');
 end
 
 % run separately after figure rendered (otherwise resizes beyond figure margins)

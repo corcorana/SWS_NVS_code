@@ -15,7 +15,7 @@ font_theme <- theme(
   axis.title.x = element_text(size = 20, face="bold"),
   axis.title.y = element_text(size = 20, face="bold"),
   axis.text.x = element_text(size = 20, face="bold"),
-  axis.text.y = element_text(size = 20, face="bold"),
+  axis.text.y = element_text(size = 20, color = "black"),
   strip.text.x = element_text(size = 20, face="bold"),
   strip.text.y = element_text(size = 20, face="bold"),
   legend.title = element_text(size = 20, face="bold"), 
@@ -127,6 +127,7 @@ summary(c.wm)
 pairs(emmeans(c.wm, ~stim))
 pairs(emmeans(c.wm, ~cond))
 contrast(emmeans(c.wm, ~cond*stim), interaction = "pairwise", adjust="sidak")
+
 
 ### spectral power ###
 delta <- filter(data, freq=="Delta")
@@ -424,7 +425,8 @@ ggplot() +
   geom_point(dat = m3,
              aes(x = ji, y = l2, fill = cond), size = 3, alpha = .3, stroke = 1.5, shape=21) +
   scale_y_continuous(position = "right", name = "Power (a.u.)", 
-                     limits = c(-.12, .14), breaks = c(-.1, 0, .1), labels = c("-.1", "0", ".1") ) +
+                     limits = c(-.13, .14), breaks = c(-.10, -.05, 0, .05, .10), 
+                     labels = c("-.10 ", "-.05 ", " 0", ".05", ".10") ) +
   scale_x_continuous(name = " ", breaks = c(1:3), labels = c("P+","P-","P0")) +
   scale_fill_manual(values = colCond,
                     breaks=c("pos","neg","zero"), labels = c("P+","P-","P0") ) + 
@@ -438,8 +440,10 @@ ggplot() +
              aes(x = as.numeric(cond), y = emmean, fill = cond), 
              size = 5, stroke = 2.5, shape = 21 ) +
   font_theme +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "none",
-        axis.text.x = element_text(color=colCond), 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        legend.position = "none",
+        axis.text.x = element_text(color=colCond, size = 24),
+        strip.text.x = element_text(size = 24), 
         plot.background = element_rect(fill = "transparent", color = NA) ) +
   facet_wrap(.~freq) +
   geom_text(data = anno, aes(x = xstar,  y = ystar, label = lab), size= 10) +
@@ -451,4 +455,5 @@ ggplot() +
                                 y = y2, yend = y2) )
 
 # save figure
-ggsave(filename = "fig3C.png", path = "figures", width = 20, height = 11, units = "cm", bg="transparent")
+ggsave(filename = "fig3C.png", path = "figures", 
+       width = 25, height = 12.5, units = "cm", bg="transparent")

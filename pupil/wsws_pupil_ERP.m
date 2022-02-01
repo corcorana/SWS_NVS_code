@@ -146,8 +146,11 @@ for ncat=1:length(StimCat)
     end
     set(gca,'LineWidth',2);
     ylabel('Pupil size (a.u.)')
-    title(StimCat{ncat}, 'FontSize', 20, 'FontWeight', 'Bold', 'Color',  ColorStim(ncat,:))
+    title(StimCat{ncat}, 'FontSize', 24, 'FontWeight', 'Bold', 'Color',  ColorStim(ncat,:))
 end
+hl = legend({'' 'P+' '' '' 'P-' '' '' 'P0'}, 'Box', 'off', 'Location', 'northeast');
+pos_hl = get(hl, 'Position');
+set(hl, 'Position', [pos_hl(1)+0.125, pos_hl(2)+.09, pos_hl(3), pos_hl(4)]);
 
 % export
 try
@@ -155,4 +158,3 @@ try
 catch
     hgexport(gcf, [path_figs filesep 'fig4B'], hgexport('factorystyle'), 'Format', 'png')
 end
-

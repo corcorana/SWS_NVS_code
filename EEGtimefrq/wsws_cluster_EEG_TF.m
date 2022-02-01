@@ -97,6 +97,7 @@ if exist(path_eeglab, 'dir')
     load eeglab_chanlocs
     chans = chanlocs(find(ismember({chanlocs.labels}, label)));
 else
+    warning('Unable to load chanlocs')
     cfg = [];
     cfg.parameter = 'mask';
     cfg.cm = cm;
@@ -111,7 +112,7 @@ spex =  {   1, 2, frx;
             1, 3, frx;
             2, 2, frx  };
         
-figure; set(gcf,'units','centimeters', 'Position', [1 1 19 9])      
+figure; set(gcf,'units','centimeters', 'Position', [1 1 25.5 8])      
 try
     ax = tight_subplot(1,3,[.01 .01]);
 catch
@@ -134,9 +135,9 @@ for sx = 1:size(spex, 1)
 
     end
     caxis([0 1])
-    title(['\color[rgb]{',num2str(ColorStim(spex{sx,1},:)),'}', StimCat{spex{sx,1}},...
-        ' ','\color{black}', Ctrst{sx}], 'interpreter', 'tex')
     format_fig
+    title(['\color[rgb]{',num2str(ColorStim(spex{sx,1},:)),'}', StimCat{spex{sx,1}},...
+        ' ','\color{black}', Ctrst{sx}], 'FontSize', 24, 'FontWeight', 'Bold', 'interpreter', 'tex')
 end
 
 % Get positions of all the subplot
