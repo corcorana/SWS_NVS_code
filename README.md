@@ -1,12 +1,10 @@
 # SWS_NVS_code
 
-
 Welcome to the GitHub repository for 
 **Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech**, a combined EEG-pupillometry study of degraded speech processing.
 
 This repository contains the scripts and functions required to reproduce the analyses reported in the  associated [manuscript](https://www.biorxiv.org/content/10.1101/2021.09.06.459160v1).
 You can access the data files on which these scripts operate from the accompanying [OSF repository](https://osf.io/5qxds/).
-
 
 ## Directions
 In order to reproduce the analyses reported in the manuscript, first download/clone this repository into a suitable directory and navigate to the `def_local.m` script.
@@ -60,7 +58,7 @@ If the materials archived here are useful for your own research, please cite thi
 
 Please also cite the accompanying manuscript:
 
-> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T.A. (2021). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. **bioRxiv**. doi: https://doi.org/10.1101/2021.09.06.459160 
+> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T.A. (2021). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. *bioRxiv*. doi: 10.1101/2021.09.06.459160 
 
 
 ## Current release
@@ -105,12 +103,14 @@ The preprocessing and analysis pipeline archived here was built and tested on a 
 stats     graphics  grDevices utils     datasets  methods   base     
 
 **other attached packages:**
+
 RVAideMemoire_0.9-81 ordinal_2019.12-10   performance_0.8.0    emmeans_1.7.1-1      car_3.0-12          
 carData_3.0-4        lme4_1.1-27.1        Matrix_1.3-4         forcats_0.5.1        stringr_1.4.0       
 dplyr_1.0.7          purrr_0.3.4          readr_2.1.0          tidyr_1.1.4          tibble_3.1.6        
 ggplot2_3.3.5        tidyverse_1.3.1      here_1.0.1          
 
 **loaded via a namespace (and not attached):**
+
 Rcpp_1.0.7          lubridate_1.8.0     mvtnorm_1.1-3       lattice_0.20-44     assertthat_0.2.1   
 rprojroot_2.0.2     utf8_1.2.2          R6_2.5.1            cellranger_1.1.0    backports_1.4.0    
 reprex_2.0.1        httr_1.4.2          pillar_1.6.4        rlang_0.4.12        readxl_1.3.1       
