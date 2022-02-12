@@ -11,8 +11,8 @@ You can access the data files on which these scripts operate from the accompanyi
 ## Directions
 In order to reproduce the analyses reported in the manuscript, first download/clone this repository into a suitable directory and navigate to the `def_local.m` script.
 You will need to modify this script in order to define local paths to the data and stimulus materials (which you will need to download from the [OSF repository](https://osf.io/5qxds/)), as well as the requisite *MATLAB* toolboxes.
-You will need the *FieldTrip* toolbox installed in order to reproduce the EEG-based analyses; the *mTRF* toolbox is required for the  [stimulus reconstruction](#stimulus-reconstruction) analysis only (scripts will warn you if these toolboxes cannot be located).
-Optional toolboxes for figure plotting include *EEGLAB* and *export_fig*.
+You will need [FieldTrip](https://www.fieldtriptoolbox.org/) installed in order to reproduce the EEG-based analyses; the [mTRF toolbox](https://github.com/mickcrosse/mTRF-Toolbox) is required for the  [stimulus reconstruction](#stimulus-reconstruction) analysis only (scripts will warn you if these toolboxes cannot be located).
+Optional toolboxes for figure plotting include [EEGLAB](https://sccn.ucsd.edu/eeglab/index.php) and [export_fig](https://au.mathworks.com/matlabcentral/fileexchange/23629-export_fig/).
 
 ### EEG preprocessing
 To reproduce the EEG analysis pipeline from scratch (i.e. from raw data), first navigate to the `EEGpreproc` subdirectory to perform preprocessing.
@@ -20,20 +20,20 @@ The entire preprocessing pipeline can be conveniently run from the high-level sc
 Note that running this script will mean that bad channels, epochs, and independent components will be rejected according to the information stored in the corresponding `wsws_bad*.csv` and `wsws_badComps_t*.mat` files.
 
 You may manually review the raw data for bad channels and epochs by setting `manualRej = 1`. 
-Note that this will lead to the modification of the `wsws_bad*.csv` files that are invoked when the pipeline is run in the default (automated rejection) mode.
+Note that this will modify the `wsws_bad*.csv` files that are invoked when the pipeline is run in the default (automated rejection) mode.
 You may also manually review the ICA decompositions produced by `wsws_ICA.m` by invoking the `wsws_ICA_plot.m` function, specifying the appropriate subject number and file type ('train' or 'test').
-IC rejection can then be altered by updating the contents of `wsws_badComps_t*.mat` prior to running `wsws_ICA_reject_t*.m`. 
+ICs that are marked for rejection can be altered by updating the contents of `wsws_badComps_t*.mat` prior to running `wsws_ICA_reject_t*.m`. 
 
 ### Spectral power
 The time-frequency and event-related (de)synchronisation analyses can be run from the scripts contained within the `EEGtimefrq` subdirectory.
 For both kinds of analysis, first extract frequency-domain estimates using `wsws_extract_EEG_*.m`, before conducting cluster-based permutation analysis using `wsws_cluster_EEG_*.m`.
-(Note that these scripts can be run on the preprocessed files provided in the [OSF repository](https://osf.io/5qxds/), thereby avoiding the need to run the preprocessing pipeline first.)
+(Note that these scripts can be run on the preprocessed files provided in the [OSF repository](https://osf.io/5qxds/), thereby obviating the need to run the preprocessing pipeline first.)
 
 Grand-average time-frequency compositions can be computed and plotted with `wsws_average_EEG_TF.m`.
 `wsws_prep_EEG_LMM.m` collates trial-level spectral power estimates for [statistical modelling](#statistical-modelling). 
 
 ### Stimulus reconstruction
-The stimulus reconstruction analysis can be performed independently of spectral analysis.
+The stimulus reconstruction analysis can be performed independently of the spectral analysis.
 This pipeline can be run from the high-level script `wsws_run_stimrec.m`.
 
 ### Pupil diameter
@@ -45,15 +45,16 @@ The outputs tables generated from the spectral power (`wsws_timefrq.csv`) and st
 Note that rerunning analysis pipelines will overwrite these files, potentially altering model results if new parameters have been specified.
 
 `wsws_timefrq.R` models subjective clarity ratings and mean spectral power estimates for each analysed frequency band.
-It also visualises the frequency band models.
+It also visualises the predictions of the frequency band models.
 `wsws_stimrec.R` models the stimulus reconstruction data and reruns the clarity rating analysis with  reconstruction score included as a predictor in the model.
+
 Note that each script performs nested model comparisons; hence, to reduce processing time, you might want to consider fitting only the winning model from each analysis.
 Please ensure you have the appropriate packages installed on your system prior to running these *R* scripts (packages are listed at the beginning of each script; see [System Information](#system-information) for further details that might be useful for ensuring reproducibility).
 
-`stats` also contains a *MATLAB* script for collating and summarising basic demographic information (`wsws_demogs.m`) stored in `SWS_NVS_results_*.mat` files.
+The `stats` subdirectory also contains a *MATLAB* script for collating and summarising basic demographic information (`wsws_demogs.m`) stored in `SWS_NVS_results_*.mat` files.
 
 ## Citation
-If the materials archived here are useful for your own research, please cite this repository including the appropriate release version information (year and doi; see below for details):
+If the materials archived here are useful for your own research, please cite this repository including the appropriate [release version](#current-release) information (year and doi; see below for details):
 
 > Corcoran, A.W. & Andrillon, T.A. {*year*}. SWS_NVS_code {*version*} [Software]. Retrieved from https://github.com/corcorana/SWS_NVS_code. {*doi*}
 
@@ -96,15 +97,29 @@ The preprocessing and analysis pipeline archived here was built and tested on a 
 
 
 
-**R version 3.6.2 (2019-12-12)**
+**R version 4.1.1 (2021-08-10)**
 
-**Platform:** x86_64-w64-mingw32/x64 (64-bit) 
+**Platform:** x86_64-w64-mingw32/x64 (64-bit)
 
-**attached base packages:** 
-_stats_, _graphics_, _grDevices_, _utils_, _datasets_, _methods_ and _base_
+**attached base packages:**
+stats     graphics  grDevices utils     datasets  methods   base     
 
-**other attached packages:** 
-_RVAideMemoire(v.0.9-79)_, _ordinal(v.2019.12-10)_, _performance(v.0.5.0)_, _emmeans(v.1.5.1)_, _car(v.3.0-10)_, _carData(v.3.0-4)_, _lme4(v.1.1-23)_, _Matrix(v.1.2-18)_, _forcats(v.0.5.0)_, _stringr(v.1.4.0)_, _dplyr(v.1.0.2)_, _purrr(v.0.3.4)_, _readr(v.1.4.0)_, _tidyr(v.1.1.2)_, _tibble(v.3.0.4)_, _ggplot2(v.3.3.2)_ and _tidyverse(v.1.3.0)_
+**other attached packages:**
+RVAideMemoire_0.9-81 ordinal_2019.12-10   performance_0.8.0    emmeans_1.7.1-1      car_3.0-12          
+carData_3.0-4        lme4_1.1-27.1        Matrix_1.3-4         forcats_0.5.1        stringr_1.4.0       
+dplyr_1.0.7          purrr_0.3.4          readr_2.1.0          tidyr_1.1.4          tibble_3.1.6        
+ggplot2_3.3.5        tidyverse_1.3.1      here_1.0.1          
 
-**loaded via a namespace (and not attached):** 
-_TH.data(v.1.0-10)_, _minqa(v.1.2.4)_, _colorspace(v.1.4-1)_, _ellipsis(v.0.3.1)_, _rio(v.0.5.16)_, _rsconnect(v.0.8.16)_, _estimability(v.1.3)_, _fs(v.1.5.0)_, _rstudioapi(v.0.11)_, _rstan(v.2.21.2)_, _fansi(v.0.4.1)_, _mvtnorm(v.1.1-1)_, _lubridate(v.1.7.9)_, _xml2(v.1.3.2)_, _codetools(v.0.2-16)_, _splines(v.3.6.2)_, _knitr(v.1.30)_, _jsonlite(v.1.7.1)_, _nloptr(v.1.2.2.2)_, _packrat(v.0.5.0)_, _broom(v.0.7.1)_, _dbplyr(v.1.4.4)_, _compiler(v.3.6.2)_, _httr(v.1.4.2)_, _backports(v.1.1.10)_, _assertthat(v.0.2.1)_, _cli(v.2.1.0)_, _htmltools(v.0.5.0)_, _prettyunits(v.1.1.1)_, _tools(v.3.6.2)_, _coda(v.0.19-4)_, _gtable(v.0.3.0)_, _glue(v.1.4.2)_, _V8(v.3.2.0)_, _Rcpp(v.1.0.5)_, _cellranger(v.1.1.0)_, _vctrs(v.0.3.4)_, _nlme(v.3.1-149)_, _insight(v.0.12.0)_, _xfun(v.0.18)_, _ps(v.1.4.0)_, _openxlsx(v.4.2.2)_, _rvest(v.0.3.6)_, _lifecycle(v.0.2.0)_, _statmod(v.1.4.34)_, _MASS(v.7.3-53)_, _zoo(v.1.8-8)_, _scales(v.1.1.1)_, _hms(v.0.5.3)_, _parallel(v.3.6.2)_, _sandwich(v.3.0-0)_, _inline(v.0.3.16)_, _curl(v.4.3)_, _gridExtra(v.2.3)_, _pander(v.0.6.3)_, _loo(v.2.3.1)_, _StanHeaders(v.2.21.0-6)_, _stringi(v.1.4.6)_, _ucminf(v.1.1-4)_, _bayestestR(v.0.7.2)_, _boot(v.1.3-25)_, _pkgbuild(v.1.1.0)_, _zip(v.2.1.1)_, _matrixStats(v.0.57.0)_, _rlang(v.0.4.8)_, _pkgconfig(v.2.0.3)_, _evaluate(v.0.14)_, _lattice(v.0.20-41)_, _tidyselect(v.1.1.0)_, _processx(v.3.4.4)_, _magrittr(v.1.5)_, _R6(v.2.4.1)_, _generics(v.0.0.2)_, _multcomp(v.1.4-14)_, _DBI(v.1.1.0)_, _pillar(v.1.4.6)_, _haven(v.2.3.1)_, _foreign(v.0.8-76)_, _withr(v.2.3.0)_, _survival(v.3.2-7)_, _abind(v.1.4-5)_, _modelr(v.0.1.8)_, _crayon(v.1.3.4)_, _rmarkdown(v.2.4)_, _grid(v.3.6.2)_, _readxl(v.1.3.1)_, _data.table(v.1.13.0)_, _blob(v.1.2.1)_, _callr(v.3.5.1)_, _reprex(v.0.3.0)_, _digest(v.0.6.25)_, _xtable(v.1.8-4)_, _numDeriv(v.2016.8-1.1)_, _RcppParallel(v.5.0.2)_, _stats4(v.3.6.2)_ and _munsell(v.0.5.0)_
+**loaded via a namespace (and not attached):**
+Rcpp_1.0.7          lubridate_1.8.0     mvtnorm_1.1-3       lattice_0.20-44     assertthat_0.2.1   
+rprojroot_2.0.2     utf8_1.2.2          R6_2.5.1            cellranger_1.1.0    backports_1.4.0    
+reprex_2.0.1        httr_1.4.2          pillar_1.6.4        rlang_0.4.12        readxl_1.3.1       
+rstudioapi_0.13     minqa_1.2.4         nloptr_1.2.2.3      splines_4.1.1       munsell_0.5.0      
+broom_0.7.10        numDeriv_2016.8-1.1 compiler_4.1.1      modelr_0.1.8        pkgconfig_2.0.3    
+insight_0.14.5      tidyselect_1.1.1    fansi_0.5.0         ucminf_1.1-4        crayon_1.4.2       
+tzdb_0.2.0          dbplyr_2.1.1        withr_2.4.3         MASS_7.3-54         grid_4.1.1         
+nlme_3.1-152        jsonlite_1.7.2      xtable_1.8-4        gtable_0.3.0        lifecycle_1.0.1    
+DBI_1.1.1           magrittr_2.0.1      scales_1.1.1        estimability_1.3    cli_3.1.0          
+stringi_1.7.6       fs_1.5.0            xml2_1.3.2          ellipsis_0.3.2      generics_0.1.1     
+vctrs_0.3.8         boot_1.3-28         tools_4.1.1         glue_1.5.0          hms_1.1.1          
+abind_1.4-5         colorspace_2.0-2    rvest_1.0.2         haven_2.4.3    
