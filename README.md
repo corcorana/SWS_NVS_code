@@ -59,12 +59,11 @@ If the materials archived here are useful for your own research, please cite thi
 
 Please also cite the accompanying manuscript:
 
-> Corcoran, A.W., [...]
+> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T.A. (2021). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. **bioRxiv**. doi: https://doi.org/10.1101/2021.09.06.459160 
 
 
-## Current release -- to be assigned when repo made public
-`v1.0.0` [![DOI](https://zenodo.org/badge/DOI/[...].svg)](https://doi.org/[...])
-
+## Current release
+`v0.1.0` [![DOI](https://zenodo.org/badge/400722791.svg)](https://zenodo.org/badge/latestdoi/400722791)
 
 ## License
 This software is freely available for redistribution and/or modification under the terms of the GNU General Public Licence.
