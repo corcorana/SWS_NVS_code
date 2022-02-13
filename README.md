@@ -54,11 +54,11 @@ The `stats` subdirectory also contains a *MATLAB* script for collating and summa
 ## Citation
 If the materials archived here are useful for your own research, please cite this repository including the appropriate [release version](#current-release) information (year and doi; see below for details):
 
-> Corcoran, A.W. & Andrillon, T.A. {*year*}. SWS_NVS_code {*version*} [Software]. Retrieved from https://github.com/corcorana/SWS_NVS_code. {*doi*}
+> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T. {*year*}. SWS_NVS_code {*version*} [Software]. Retrieved from https://github.com/corcorana/SWS_NVS_code. {*doi*}
 
 Please also cite the accompanying manuscript:
 
-> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T.A. (2021). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. *bioRxiv*. doi: 10.1101/2021.09.06.459160 
+> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T. (2021). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. *bioRxiv*. doi: 10.1101/2021.09.06.459160 
 
 
 ## Current release
