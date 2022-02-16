@@ -29,8 +29,11 @@ colCond <- c(rgb(0.1054688, 0.6171875, 0.4648438),
 )
 
 
-## wrangling
-data <- read.csv(file.path("stats", "wsws_timefrq.csv", fsep = .Platform$file.sep), header=TRUE)
+# import data
+dat <- tryCatch( # navigate from base dir, otherwise try local
+  read.csv(file.path("stats", "wsws_timefrq.csv", fsep = .Platform$file.sep), header = TRUE),
+  warning = function(w)
+    read.csv("wsws_timefrq.csv", header = TRUE) )
 
 # trim empty rows at foot of df, recode NaNs to NAs
 data <- data[!is.nan(data$subj_id),]

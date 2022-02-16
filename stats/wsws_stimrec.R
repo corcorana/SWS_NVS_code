@@ -11,7 +11,10 @@ library(RVAideMemoire)
 options(contrasts = c("contr.Sum", "contr.poly"))
 
 # import data
-dat <- read.csv(file.path("stats", "wsws_stimRec.csv", fsep = .Platform$file.sep), header = TRUE)
+dat <- tryCatch( # navigate from base dir, otherwise try local
+  read.csv(file.path("stats", "wsws_stimRec.csv", fsep = .Platform$file.sep), header = TRUE),
+  warning = function(w)
+    read.csv("wsws_stimRec.csv", header = TRUE) )
 
 # create factors
 dat <- dat %>% 
