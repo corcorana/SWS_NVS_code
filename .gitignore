@@ -40,8 +40,11 @@ vignettes/*.pdf
 .Renviron
 
 # large .mat files
-*ERD.mat
+*.mat
 
 # output files
 *.png
 *.html
+*.svg
+*.tif*
+*.eps
