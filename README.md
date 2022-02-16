@@ -62,7 +62,8 @@ Please also cite the accompanying manuscript:
 
 
 ## Current release
-`v0.1.0` [![DOI](https://zenodo.org/badge/400722791.svg)](https://zenodo.org/badge/latestdoi/400722791)
+`v1.0.0` [![DOI](https://zenodo.org/badge/400722791.svg)](https://zenodo.org/badge/latestdoi/400722791)
+
 
 ## License
 This software is freely available for redistribution and/or modification under the terms of the GNU General Public Licence.
