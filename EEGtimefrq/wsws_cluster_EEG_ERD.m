@@ -64,7 +64,7 @@ addpath(path_figs)
 nRep = 2; nFrq = 3;
 chans = [23:32, 56:64];     % select channels to average over (parieto-occipital electrodes as per channel number)
 
-figure; set(gcf,'Position',[193   170   528   727])
+figure; set(gcf,'Position',[193   170   528   787])
 for nStim = 1:length(StimCat)
     sp = subplot(2,1,nStim);
     for nCond = 1:3
@@ -98,10 +98,10 @@ for nStim = 1:length(StimCat)
     line([0,0], ylim*1.1, 'LineStyle', '--', 'Color', 'k')
     ylabel('Alpha power (a.u.)')
     if nStim==2
-                xlabel('Time (s)')
+        xlabel('Time (s)')
     end
     format_fig
-    title(StimCat{nStim}, 'FontSize', 24, 'FontWeight', 'Bold', 'Color', ColorStim(nStim,:))
+    title(StimCat{nStim}, 'FontSize', 28, 'FontWeight', 'Bold', 'Color', ColorStim(nStim,:))
 
     % add channel layout
     if nStim == 1
@@ -116,7 +116,7 @@ end
 
 % export
 try
-    export_fig( [path_figs filesep 'fig4A.png'] )
+    export_fig( [path_figs filesep 'fig4A'], '-png' )
 catch
     hgexport(gcf, [path_figs filesep 'fig4A'], hgexport('factorystyle'), 'Format', 'png')
 end

@@ -67,7 +67,7 @@ for nCond = 1:3
     
     format_fig
     title(['\color[rgb]{',num2str(ColorCond(nCond,:)),'}' Conds{nCond}], ...
-        'FontSize', 24, 'FontWeight', 'Bold', 'interpreter', 'tex');
+        'FontSize', 28, 'FontWeight', 'Bold', 'interpreter', 'tex');
 end
 
 % run separately after figure rendered (otherwise resizes beyond figure margins)
@@ -83,7 +83,7 @@ set(gcf,'position',[posf(1:2) posf(3)*1.1 posf(4)*1])
 
 % export
 try
-    export_fig( [path_figs filesep 'fig3A.png'] )
+    export_fig( [path_figs filesep 'fig3A'], '-eps' )
 catch
     hgexport(gcf, [path_figs filesep 'fig3A'], hgexport('factorystyle'), 'Format', 'png')
 end

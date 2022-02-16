@@ -154,7 +154,7 @@ set(gcf,'position',[posf(1:2) posf(3)*1.1 posf(4)*1.1])
 
 % export
 try
-    export_fig( [path_figs filesep 'fig3B.png'] )
+    export_fig( [path_figs filesep 'fig3B'], '-png' )
 catch
     hgexport(gcf, [path_figs filesep 'fig3B'], hgexport('factorystyle'), 'Format', 'png'); 
 end

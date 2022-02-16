@@ -122,7 +122,7 @@ for ncat=1:length(StimCat)
 end
 
 %% plot Figure 4B
-figure; set(gcf,'Position',[193   170   528   727])
+figure; set(gcf,'Position',[193   170   528   787])
 transpF=0.3;
 for ncat=1:length(StimCat)
     subplot(2,1,ncat); format_fig; hold on;
@@ -146,11 +146,11 @@ for ncat=1:length(StimCat)
     end
     set(gca,'LineWidth',2);
     ylabel('Pupil size (a.u.)')
-    title(StimCat{ncat}, 'FontSize', 24, 'FontWeight', 'Bold', 'Color',  ColorStim(ncat,:))
+    title(StimCat{ncat}, 'FontSize', 28, 'FontWeight', 'Bold', 'Color',  ColorStim(ncat,:))
 end
-hl = legend({'' 'P+' '' '' 'P-' '' '' 'P0'}, 'Box', 'off', 'Location', 'northeast');
+hl = legend({'' 'P+' '' '' 'P-' '' '' 'P0'}, 'Box', 'off', 'Location', 'northeast', 'FontSize', 22);
 pos_hl = get(hl, 'Position');
-set(hl, 'Position', [pos_hl(1)+0.125, pos_hl(2)+.09, pos_hl(3), pos_hl(4)]);
+set(hl, 'Position', [pos_hl(1)+0.125, pos_hl(2)+.1, pos_hl(3), pos_hl(4)]);
 
 % export
 try
