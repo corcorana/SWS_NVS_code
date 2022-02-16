@@ -3,7 +3,7 @@
 Welcome to the GitHub repository for 
 **Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech**, a combined EEG-pupillometry study of degraded speech processing.
 
-This repository contains the scripts and functions required to reproduce the analyses reported in the  associated [manuscript](https://www.biorxiv.org/content/10.1101/2021.09.06.459160v1).
+This repository contains the scripts and functions required to reproduce the analyses reported in the  associated [manuscript](https://www.biorxiv.org/content/10.1101/2021.09.06.459160v2).
 You can access the data files on which these scripts operate from the accompanying [OSF repository](https://osf.io/5qxds/).
 
 ## Directions
@@ -58,7 +58,7 @@ If the materials archived here are useful for your own research, please cite thi
 
 Please also cite the accompanying manuscript:
 
-> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T. (2021). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. *bioRxiv*. doi: 10.1101/2021.09.06.459160 
+> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T. (2022). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. *Cerebral Cortex*, bhac094. doi: 10.1093/cercor/bhac094
 
 
 ## Current release
