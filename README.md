@@ -58,7 +58,7 @@ If the materials archived here are useful for your own research, please cite thi
 
 Please also cite the accompanying manuscript:
 
-> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T. (2022). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. *Cerebral Cortex*, bhac094. doi: 10.1093/cercor/bhac094
+> Corcoran, A.W., Perera, R., Koroma, M., Kouider, S., Hohwy, J., & Andrillon, T. (2022). Expectations boost the reconstruction of auditory features from electrophysiological responses to noisy speech. *Cerebral Cortex*, bhac094. doi: [10.1093/cercor/bhac094](https://doi.org/10.1093/cercor/bhac094)
 
 
 ## Current release
